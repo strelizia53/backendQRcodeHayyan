@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_file
 import cv2
-from pyzbar.pyzbar import decode
+# from pyzbar.pyzbar import decode
 from PIL import Image
 import os, tempfile
 
