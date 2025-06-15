@@ -7,14 +7,12 @@ import os, tempfile
 app = Flask(__name__)
 
 def check_qr_damage(img_path):
+    import cv2
     img = cv2.imread(img_path)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     detector = cv2.QRCodeDetector()
-    data, _, _ = detector.detectAndDecode(gray)
-    readable = data != ''
-    if not readable:
-        readable = len(decode(Image.open(img_path))) > 0
-    return "undamageQR" if readable else "damageQR"
+    data, points, _ = detector.detectAndDecode(img)
+    return "undamageQR" if data else "damageQR"
+
 
 @app.route("/scan", methods=["POST"])
 def scan_qr():
